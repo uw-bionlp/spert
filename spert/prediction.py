@@ -200,10 +200,14 @@ def store_predictions(documents, pred_entities, pred_relations, store_path):
             converted_relations.append(converted_relation)
         converted_relations = sorted(converted_relations, key=lambda r: r['head'])
 
-        doc_predictions = dict(tokens=[t.phrase for t in tokens], entities=converted_entities,
+        doc_predictions = dict(doc_id = doc.doc_id, 
+                               tokens=[t.phrase for t in tokens], 
+                               entities=converted_entities,
                                relations=converted_relations)
         predictions.append(doc_predictions)
 
     # store as json
-    with open(store_path, 'w') as predictions_file:
-        json.dump(predictions, predictions_file)
+    #with open(store_path, 'w') as predictions_file:
+    #    json.dump(predictions, predictions_file)
+
+    return predictions

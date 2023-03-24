@@ -1,5 +1,26 @@
 # SpERT: Span-based Entity and Relation Transformer
-PyTorch code for SpERT: "Span-based Entity and Relation Transformer". For a description of the model and experiments, see our paper: https://arxiv.org/abs/1909.07755 (published at ECAI 2020).
+This is the forked repo used by UW-bioNLP of SpERT: "Span-based Entity and Relation Transformer". For a description of the model and experiments, see: https://arxiv.org/abs/1909.07755.
+
+We created this repo for **inference** convenience. For training or other needs, please refer to the upstream original repo at https://github.com/lavis-nlp/spert. 
+
+## Why for SpERT?
+Largely because
+1. The original SpERT code appears to have a memory leak when used for inference. We've observed linear memory use increases with various configurations and batch sizes, and have been unable to determine the problem. It also appears unlikely to be fixed upstream.
+2. The original SpERT repo assumes various specific configurations which impede quick inference, for example given just a directory of .txt files. This repo simplifies inference setup and demonstrates how others could do so as well.
+
+## Inference
+```sh
+python3 -m venv venv
+source venv/bin/activate
+python3 -m pip install --upgrade pip
+python3 -m pip install -r requirement.txt
+
+python3 predict.py <your_txts_dir> --batch_size=<x> --device=<y>
+```
+
+Note that because of the aforementioned memory leak, `--batch_size` here refers to the number of .txt files to run inference on before reloading the model. The `batch_size` used in Pytorch is hard-coded as 1. This is unfortunately slow, but as noted we've found the memory leak upstream necessitates this setup.
+
+--- Original SpERT readme:
 
 ![alt text](http://deepca.cs.hs-rm.de/img/deepca/spert.png)
 

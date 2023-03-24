@@ -259,9 +259,11 @@ class Relation:
 
 
 class Document:
-    def __init__(self, doc_id: int, tokens: List[Token], entities: List[Entity], relations: List[Relation],
+    def __init__(self, doc_id: str, doc_index: int, tokens: List[Token], entities: List[Entity], relations: List[Relation],
                  encoding: List[int]):
-        self._doc_id = doc_id  # ID within the corresponding dataset
+        
+        self._doc_id = doc_id  
+        self._doc_index = doc_index # ID within the corresponding dataset
 
         self._tokens = tokens
         self._entities = entities
@@ -365,8 +367,8 @@ class Dataset(TorchDataset):
         self._tid += 1
         return token
 
-    def create_document(self, tokens, entity_mentions, relations, doc_encoding) -> Document:
-        document = Document(self._doc_id, tokens, entity_mentions, relations, doc_encoding)
+    def create_document(self, doc_id, tokens, entity_mentions, relations, doc_encoding) -> Document:
+        document = Document(doc_id, self._doc_id, tokens, entity_mentions, relations, doc_encoding)
         self._documents[self._doc_id] = document
         self._doc_id += 1
 

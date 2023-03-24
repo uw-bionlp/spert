@@ -84,8 +84,8 @@ class Evaluator:
         return ner_eval, rel_eval, rel_nec_eval
 
     def store_predictions(self):
-        prediction.store_predictions(self._dataset.documents, self._pred_entities,
-                                     self._pred_relations, self._predictions_path)
+        return prediction.store_predictions(self._dataset.documents, self._pred_entities,
+                                            self._pred_relations, self._predictions_path)
 
     def store_examples(self):
         if jinja2 is None:
